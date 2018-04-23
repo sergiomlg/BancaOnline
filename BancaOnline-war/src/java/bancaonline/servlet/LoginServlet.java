@@ -5,8 +5,12 @@
  */
 package bancaonline.servlet;
 
+import bancaonline.ejb.UsuarioFacade;
+import bancaonline.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,18 +38,24 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+       // Usuario user = usuarioFacade.buscarUsuarioPorDni(request.getParameter("usuario"));
+       
+      // Usuario user = new Usuario(request.getParameter("usuario"));
+        System.out.println(request.getParameter("usuario"));
+        
+        Usuario res= usuarioFacade.find(request.getParameter("usuario"));
+        
+        if (res != null && res.getPassword().equals(request.getParameter("contra"))){
+            
+            request.setAttribute("user", res);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/inicioUsuario.jsp");
+
+            dispatcher.forward(request, response);
+  
+        }else{
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.html");
+
+            dispatcher.forward(request, response);
         }
     }
 

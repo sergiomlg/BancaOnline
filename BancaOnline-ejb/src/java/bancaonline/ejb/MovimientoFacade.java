@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bancaonline.beans;
+package bancaonline.ejb;
 
-import bancaonline.ejb.Empleado;
+import bancaonline.entity.Movimiento;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author W10
  */
 @Stateless
-public class EmpleadoFacade extends AbstractFacade<Empleado> {
+public class MovimientoFacade extends AbstractFacade<Movimiento> {
 
     @PersistenceContext(unitName = "BancaOnline-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class EmpleadoFacade extends AbstractFacade<Empleado> {
         return em;
     }
 
-    public EmpleadoFacade() {
-        super(Empleado.class);
+    public MovimientoFacade() {
+        super(Movimiento.class);
     }
     
 }

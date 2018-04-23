@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bancaonline.ejb;
+package bancaonline.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,48 +27,50 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author W10
  */
 @Entity
-@Table(name = "empleado")
+@Table(name = "cuenta")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e")
-    , @NamedQuery(name = "Empleado.findByIdEmpleado", query = "SELECT e FROM Empleado e WHERE e.idEmpleado = :idEmpleado")
-    , @NamedQuery(name = "Empleado.findByPassword", query = "SELECT e FROM Empleado e WHERE e.password = :password")})
-public class Empleado implements Serializable {
+    @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c")
+    , @NamedQuery(name = "Cuenta.findByIdIBAN", query = "SELECT c FROM Cuenta c WHERE c.idIBAN = :idIBAN")
+    , @NamedQuery(name = "Cuenta.findBySaldo", query = "SELECT c FROM Cuenta c WHERE c.saldo = :saldo")})
+public class Cuenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "idEmpleado")
-    private String idEmpleado;
-    @Size(max = 45)
-    @Column(name = "password")
-    private String password;
-    @OneToMany(mappedBy = "empleado")
+    @Size(min = 1, max = 20)
+    @Column(name = "idIBAN")
+    private String idIBAN;
+    @Column(name = "saldo")
+    private Integer saldo;
+    @OneToMany(mappedBy = "iban")
     private List<Movimiento> movimientoList;
+    @JoinColumn(name = "user", referencedColumnName = "idUsuario")
+    @ManyToOne
+    private Usuario user;
 
-    public Empleado() {
+    public Cuenta() {
     }
 
-    public Empleado(String idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public Cuenta(String idIBAN) {
+        this.idIBAN = idIBAN;
     }
 
-    public String getIdEmpleado() {
-        return idEmpleado;
+    public String getIdIBAN() {
+        return idIBAN;
     }
 
-    public void setIdEmpleado(String idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public void setIdIBAN(String idIBAN) {
+        this.idIBAN = idIBAN;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getSaldo() {
+        return saldo;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSaldo(Integer saldo) {
+        this.saldo = saldo;
     }
 
     @XmlTransient
@@ -78,21 +82,29 @@ public class Empleado implements Serializable {
         this.movimientoList = movimientoList;
     }
 
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEmpleado != null ? idEmpleado.hashCode() : 0);
+        hash += (idIBAN != null ? idIBAN.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Empleado)) {
+        if (!(object instanceof Cuenta)) {
             return false;
         }
-        Empleado other = (Empleado) object;
-        if ((this.idEmpleado == null && other.idEmpleado != null) || (this.idEmpleado != null && !this.idEmpleado.equals(other.idEmpleado))) {
+        Cuenta other = (Cuenta) object;
+        if ((this.idIBAN == null && other.idIBAN != null) || (this.idIBAN != null && !this.idIBAN.equals(other.idIBAN))) {
             return false;
         }
         return true;
@@ -100,7 +112,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "bancaonline.ejb.Empleado[ idEmpleado=" + idEmpleado + " ]";
+        return "bancaonline.ejb.Cuenta[ idIBAN=" + idIBAN + " ]";
     }
     
 }
