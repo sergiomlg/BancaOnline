@@ -5,10 +5,12 @@
  */
 package bancaonline.servlet;
 
+import bancaonline.ejb.EmpleadoFacade;
 import bancaonline.ejb.UsuarioFacade;
+import bancaonline.entity.Empleado;
 import bancaonline.entity.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
 
     @EJB
+    private EmpleadoFacade empleadoFacade;
+
+    @EJB
     private UsuarioFacade usuarioFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,12 +45,11 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // Usuario user = usuarioFacade.buscarUsuarioPorDni(request.getParameter("usuario"));
        
-      // Usuario user = new Usuario(request.getParameter("usuario"));
-        System.out.println(request.getParameter("usuario"));
         
         Usuario res= usuarioFacade.find(request.getParameter("usuario"));
+        
+        Empleado e=empleadoFacade.find(request.getParameter("usuario"));
         
         if (res != null && res.getPassword().equals(request.getParameter("contra"))){
             
@@ -52,6 +58,10 @@ public class LoginServlet extends HttpServlet {
 
             dispatcher.forward(request, response);
   
+        }else if(e != null && e.getPassword().equals(request.getParameter("contra"))){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/inicioTrabajador.jsp");
+
+            dispatcher.forward(request, response);
         }else{
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.html");
 
