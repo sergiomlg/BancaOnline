@@ -12,6 +12,47 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+          <h1>Crear cliente nuevo</h1>
+           <form action="DarAltaServlet" method="post">
+            <table>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><input type="text" name="user" max="30" maxlength="30"/></td>                    
+                </tr>
+                <tr>
+                    <td>Contraseña:</td>
+                    <td><input type="text" name="password" max="30" maxlength="30"/></td>
+                </tr>
+                 <tr>
+                    <td>Nombre:</td>
+                    <td><input type="text" name="name" max="30" maxlength="30"/></td>
+                </tr>
+                
+                 <tr>
+                    <td>Apellidos:</td>
+                    <td><input type="text" name="apellidos" max="30" maxlength="30"/></td>
+                </tr>
+                 
+                <tr>
+                    <td>E-mail:</td>
+                    <td><input type="text" name="email"/></td>                    
+                </tr>
+                <tr>
+                    <td>Direccion:</td>
+                    <td><input type="text" name="domicilio1"/>
+                        
+                    </td>                    
+                </tr>
+                 <tr>
+                    <td>Fecha Nacimiento:</td>
+                    <td><input type="text" name="fechaNac" max="30" maxlength="30"/></td>
+                </tr>
+                <tr>
+                    <td>Telefono:</td>
+                    <td><input type="text" name="telefono"/></td>                    
+                </tr>
+              </table>
+            <input type="submit" value="Enviar" />
+        </form>             
     </body>
 </html>
