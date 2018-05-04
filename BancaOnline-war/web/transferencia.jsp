@@ -4,14 +4,30 @@
     Author     : EzequielRodriguez
 --%>
 
+<%@page import="bancaonline.entity.Cuenta"%>
+<%@page import="bancaonline.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Transferencias-PostuBank</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Transferencias</h1>
+        
+        <form name="login" action="TransferenciaServlet" method="post">
+        Numero de cuenta destino: <input type="text" name="cuentad"/>
+        <br/>
+        <br/>
+        Saldo a transferir: <input type="text" name="saldo"/>
+        <br/>
+        <br/>
+        Concept: <input type="text" name="concepto"/>
+        <br/>
+        <br/>
+        <input type="submit" value="Enviar">
+        </form>
     </body>
 </html>

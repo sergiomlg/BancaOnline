@@ -81,10 +81,10 @@ public class DarAltaServlet extends HttpServlet {
         
         cuenta.setIdIBAN(ncuenta);
         cuenta.setMovimientoList(new ArrayList());
-        cuenta.setSaldo(0);
+        cuenta.setSaldo(100);
         cuenta.setUser(usuario);
         
-        //usuario.getCuentaList().add(cuenta);
+        
        
         this.usuarioFacade.create(usuario);
         usuario.getCuentaList().add(cuenta);

@@ -5,13 +5,22 @@
  */
 package bancaonline.servlet;
 
+import bancaonline.ejb.CuentaFacade;
+import bancaonline.ejb.MovimientoFacade;
+import bancaonline.entity.Cuenta;
+import bancaonline.entity.Movimiento;
+import bancaonline.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,6 +29,11 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "TransferenciaServlet", urlPatterns = {"/TransferenciaServlet"})
 public class TransferenciaServlet extends HttpServlet {
 
+    @EJB
+    private CuentaFacade cuentaFacade;
+    
+    @EJB
+    private MovimientoFacade movimientoFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,20 +45,54 @@ public class TransferenciaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet TransferenciaServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet TransferenciaServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        int cantidad=Integer.parseInt(request.getParameter("saldo"));
+        
+        String concepto= request.getParameter("concepto");
+        
+        HttpSession session=request.getSession();
+        
+        Usuario usuario= (Usuario)session.getAttribute("user");
+        
+        Cuenta origen=usuario.getCuentaList().get(0);
+        
+        String cuentaDestino= request.getParameter("cuentad");
+        
+        Cuenta cuentaD= cuentaFacade.find(cuentaDestino);
+        
+        cuentaD.setSaldo(cuentaD.getSaldo()+cantidad);
+        
+        origen.setSaldo(origen.getSaldo()-cantidad);
+        
+        cuentaFacade.edit(cuentaD);
+        
+        cuentaFacade.edit(origen);
+        
+        Movimiento m = new Movimiento();
+        
+        int contador= movimientoFacade.count();
+        
+        m.setCantidad(cantidad);
+        m.setConcepto(concepto);
+        m.setCuenta(cuentaD.getIdIBAN()); //Supongo que es cuenta destino
+        m.setFecha(new Date());
+        m.setIban(origen); //Cuenta origen
+        m.setIdCodigo(contador +1);
+        
+        
+        movimientoFacade.create(m);
+        
+        
+        
+        
+        
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/paginaCuenta.jsp");
+
+        dispatcher.forward(request, response);
+        
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
