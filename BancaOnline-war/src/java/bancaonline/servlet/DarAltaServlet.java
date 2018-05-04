@@ -5,12 +5,15 @@
  */
 package bancaonline.servlet;
 
+import bancaonline.ejb.CuentaFacade;
 import bancaonline.ejb.UsuarioFacade;
+import bancaonline.entity.Cuenta;
 import bancaonline.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +34,9 @@ public class DarAltaServlet extends HttpServlet {
     
     @EJB
     private UsuarioFacade usuarioFacade;
+    
+    @EJB
+    private CuentaFacade cuentaFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,13 +48,16 @@ public class DarAltaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
-        String user, contraseña, nombre, surname, fechaNac, email, domicilio1, telefono;
+        String user, contraseña, nombre, surname, fechaNac, email, domicilio1, telefono,ncuenta;
+        
+        Cuenta cuenta= new Cuenta();
        
         Usuario usuario;
         user = request.getParameter("user");
         contraseña = request.getParameter("password");
         surname = request.getParameter("apellidos");
         
+        ncuenta=request.getParameter("ncuenta");
         nombre = request.getParameter("name");
         email = request.getParameter("email");               
         domicilio1 = request.getParameter("domicilio1");  
@@ -68,8 +77,20 @@ public class DarAltaServlet extends HttpServlet {
         usuario.setName(nombre);
         usuario.setPassword(contraseña);
         usuario.setTlf(Integer.parseInt(telefono));
+        usuario.setCuentaList(new ArrayList());
+        
+        cuenta.setIdIBAN(ncuenta);
+        cuenta.setMovimientoList(new ArrayList());
+        cuenta.setSaldo(0);
+        cuenta.setUser(usuario);
+        
+        //usuario.getCuentaList().add(cuenta);
        
         this.usuarioFacade.create(usuario);
+        usuario.getCuentaList().add(cuenta);
+        this.cuentaFacade.create(cuenta);
+        
+        
         
          RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/inicioTrabajador.jsp");
         rd.forward(request, response); 

@@ -51,6 +51,10 @@
                     <td>Telefono:</td>
                     <td><input type="text" name="telefono"/></td>                    
                 </tr>
+                <tr>
+                    <td>Numero de cuenta:</td>
+                    <td><input type="text" name="ncuenta"/></td>
+                </tr>
               </table>
             <input type="submit" value="Enviar" />
         </form>             
