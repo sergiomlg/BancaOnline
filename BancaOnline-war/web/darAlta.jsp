@@ -44,7 +44,7 @@
                     </td>                    
                 </tr>
                  <tr>
-                    <td>Fecha Nacimiento:</td>
+                    <td>Fecha Nacimiento: (formato yyyy-mm-dd)</td>
                     <td><input type="text" name="fechaNac" max="30" maxlength="30"/></td>
                 </tr>
                 <tr>

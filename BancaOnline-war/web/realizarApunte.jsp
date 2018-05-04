@@ -9,9 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Realizar Apunte-PostuBank</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Realizar apunte</h1>
+        <form name="apuntes" action="RealizarApunteServlet" method="post">
+            Numero de cuenta: <input type="text" name="cuentad"/>
+            <br/>
+            <br/>
+            Saldo a transferir: <input type="text" name="saldo"/>
+            <br/>
+            <br/>
+            Concepto: <input type="text" name="concepto"/>
+            <br/>
+            <br/>
+            <input type="submit" value="Enviar">
+            <input type="button" value="Volver atrás" onclick="history.back()" >
+        </form>
     </body>
 </html>
