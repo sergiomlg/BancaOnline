@@ -4,7 +4,11 @@
     Author     : EzequielRodriguez
 --%>
 
+<%@page import="bancaonline.entity.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Usuario user = (Usuario) session.getAttribute("user");
+    %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +16,21 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>HOLAAAAAA!</h1>
+        <ul>
+            
+            <li><a href="inicioUsuario.jsp">Inicio</a></li> 
+            
+            <li><a href="paginaCuenta.jsp">Cuenta</a></li>
+            <li><a href="transferencia.jsp">Transferencias</a></li>
+            <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
+            
+        
+        
+        </ul>
+        
+        <br/>
+        <br/>
+        
+        <h1>Bienvenido, <%= user.getName() %></h1>
     </body>
 </html>

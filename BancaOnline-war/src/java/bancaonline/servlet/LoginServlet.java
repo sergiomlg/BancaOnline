@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,19 +47,21 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-        
+        HttpSession session=request.getSession(true);
         Usuario res= usuarioFacade.find(request.getParameter("usuario"));
         
         Empleado e=empleadoFacade.find(request.getParameter("usuario"));
         
         if (res != null && res.getPassword().equals(request.getParameter("contra"))){
             
-            request.setAttribute("user", res);
+            session.setAttribute("user", res);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/inicioUsuario.jsp");
 
             dispatcher.forward(request, response);
   
         }else if(e != null && e.getPassword().equals(request.getParameter("contra"))){
+            
+            session.setAttribute("empleado",e);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/inicioTrabajador.jsp");
 
             dispatcher.forward(request, response);
