@@ -79,16 +79,23 @@ public class DarAltaServlet extends HttpServlet {
         usuario.setTlf(Integer.parseInt(telefono));
         usuario.setCuentaList(new ArrayList());
         
+        
         cuenta.setIdIBAN(ncuenta);
         cuenta.setMovimientoList(new ArrayList());
         cuenta.setSaldo(100);
         cuenta.setUser(usuario);
-        
+        cuenta.setMovimientoList(new ArrayList());
         
        
+       
         this.usuarioFacade.create(usuario);
-        usuario.getCuentaList().add(cuenta);
+        
         this.cuentaFacade.create(cuenta);
+        
+        usuario.getCuentaList().add(cuenta);
+        
+        this.usuarioFacade.edit(usuario);
+        
         
         
         

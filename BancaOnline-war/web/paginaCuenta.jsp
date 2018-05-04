@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Cuentas-PostuBank</title>
         <style>
         table, th, td {
         border: 1px solid black;
@@ -43,5 +43,6 @@
                 </tr>
  
         </table>
+                <h1><%= user.getCuentaList().get(0).getMovimientoList().size() %></h1>
     </body>
 </html>

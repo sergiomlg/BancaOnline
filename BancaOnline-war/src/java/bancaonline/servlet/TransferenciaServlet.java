@@ -81,11 +81,13 @@ public class TransferenciaServlet extends HttpServlet {
         
         
         movimientoFacade.create(m);
+
+        origen.getMovimientoList().add(m);
         
+        cuentaD.getMovimientoList().add(m);
         
-        
-        
-        
+        cuentaFacade.edit(cuentaD);
+        cuentaFacade.edit(origen);
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/paginaCuenta.jsp");
 
