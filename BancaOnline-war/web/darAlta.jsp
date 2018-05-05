@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : darAlta
     Created on : 19-abr-2018, 11:13:15
     Author     : W10
@@ -9,8 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Dar de Alta</title>
     </head>
+    
+    <style>
+        body{
+                background-color: lightblue; 
+            }
+    </style>
     <body>
           <h1>Crear cliente nuevo</h1>
            <form action="DarAltaServlet" method="post">

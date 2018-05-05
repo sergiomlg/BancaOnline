@@ -6,13 +6,17 @@
 package bancaonline.servlet;
 
 import bancaonline.ejb.MovimientoFacade;
+
 import bancaonline.entity.Cuenta;
 import bancaonline.entity.Movimiento;
 import bancaonline.entity.Usuario;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,6 +33,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "BMovimientoServlet", urlPatterns = {"/BMovimientoServlet"})
 public class BMovimientoServlet extends HttpServlet {
 
+    @EJB
+    private MovimientoFacade movimientoFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,15 +42,15 @@ public class BMovimientoServlet extends HttpServlet {
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException if an I/O error occur
      */
-    @EJB
-    private MovimientoFacade movimientoFacade;
+    
     
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         
         List<Movimiento> result= new ArrayList();
         HttpSession session= request.getSession();
@@ -66,8 +72,10 @@ public class BMovimientoServlet extends HttpServlet {
             }
             
             request.setAttribute("movimientosEncontrados", result);
+
             
         }
+
         
         
         
@@ -75,6 +83,8 @@ public class BMovimientoServlet extends HttpServlet {
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/busquedaFinalizada.jsp");
         rd.forward(request, response);
        
+
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

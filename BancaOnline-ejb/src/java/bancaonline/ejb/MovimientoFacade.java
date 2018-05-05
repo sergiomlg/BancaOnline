@@ -8,6 +8,7 @@ package bancaonline.ejb;
 import bancaonline.entity.Cuenta;
 import bancaonline.entity.Movimiento;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +33,7 @@ public class MovimientoFacade extends AbstractFacade<Movimiento> {
         super(Movimiento.class);
     }
     
+
     public List<Movimiento> findByConcepto(String concepto, Cuenta idCuenta){
         Query q= em.createNamedQuery("Movimiento.findByConcepto");
         q.setParameter("concepto", concepto);
@@ -43,6 +45,7 @@ public class MovimientoFacade extends AbstractFacade<Movimiento> {
             return lista;
         
         
+
     }
     
 }

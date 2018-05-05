@@ -57,7 +57,7 @@ public class TransferenciaServlet extends HttpServlet {
         Cuenta origen=usuario.getCuentaList().get(0);
         
         String cuentaDestino= request.getParameter("cuentad");
-        
+       
         Cuenta cuentaD= cuentaFacade.find(cuentaDestino);
         
         cuentaD.setSaldo(cuentaD.getSaldo()+cantidad);
