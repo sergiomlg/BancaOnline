@@ -38,8 +38,9 @@
             
         </style>
         <h1>Buscar Movimientos</h1>
-        
+        <form action="BMovimientoServlet" method="post">
         Introduce el concepto que desea buscar: <input type ="content-box-gray" name="concepto"/>
-        <a href="#" class="button">Enviar</a>
+        <input type="submit" value="Enviar"/>
+        </form>
     </body>
 </html>

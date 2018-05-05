@@ -5,13 +5,22 @@
  */
 package bancaonline.servlet;
 
+import bancaonline.ejb.MovimientoFacade;
+import bancaonline.entity.Cuenta;
+import bancaonline.entity.Movimiento;
+import bancaonline.entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,8 +38,42 @@ public class BMovimientoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @EJB
+    private MovimientoFacade movimientoFacade;
+    
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        List<Movimiento> result= new ArrayList();
+        HttpSession session= request.getSession();
+        
+        Usuario usuario = (Usuario) session.getAttribute("user");
+        
+        Cuenta cuentaUsuario= usuario.getCuentaList().get(0);
+        String concepto= request.getParameter("concepto");
+        
+        List<Movimiento> resultado= movimientoFacade.findByConcepto(concepto,cuentaUsuario);
+        
+        if(resultado == null){
+            request.setAttribute("movimientosEncontrados", resultado);
+        }else{
+            for(Movimiento mo : resultado){
+                if(mo.getCuenta().equals(cuentaUsuario.getIdIBAN()) || mo.getIban().equals(cuentaUsuario)){
+                    result.add(mo);
+                }
+            }
+            
+            request.setAttribute("movimientosEncontrados", result);
+            
+        }
+        
+        
+        
+        
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/busquedaFinalizada.jsp");
+        rd.forward(request, response);
        
     }
 

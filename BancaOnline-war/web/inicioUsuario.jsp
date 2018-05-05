@@ -19,7 +19,7 @@
         <ul>
             
             <li><a href="inicioUsuario.jsp">Inicio</a></li> 
-            
+            <li><a href="buscarMovimientos.jsp">Buscar Movimientos</a></li>
             <li><a href="paginaCuenta.jsp">Cuenta</a></li>
             <li><a href="transferencia.jsp">Transferencias</a></li>
             <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
