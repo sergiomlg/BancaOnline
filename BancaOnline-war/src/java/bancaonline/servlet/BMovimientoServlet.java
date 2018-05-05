@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,18 +48,18 @@ public class BMovimientoServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         try{
-            int id = movimientoFacade.getIdFromConcepto(request.getParameter("concepto"));
-            Movimiento mov = movimientoFacade.find(id);
+            List<Movimiento> list = movimientoFacade.getIdFromConcepto(request.getParameter("concepto"));
+            Movimiento mov = list.get(0);
             if(mov != null){
             
             session.setAttribute("movimiento", mov);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/busquedaFinalizada.jsp");
-        dispatcher.forward(request, response);
-        }else{
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/buscarMovimientos.jsp");
-        dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/busquedaFinalizada.jsp");
+            dispatcher.forward(request, response);
+            }else{
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/buscarMovimientos.jsp");
+            dispatcher.forward(request, response);
             
-        }
+            }
             
         }catch(Exception e){
             e.printStackTrace();
