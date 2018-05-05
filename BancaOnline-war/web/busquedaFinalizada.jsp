@@ -3,6 +3,8 @@
     Created on : 19-abr-2018, 11:22:10
     Author     : EzequielRodriguez
 --%>
+<%@page import="org.apache.jasper.tagplugins.jstl.ForEach"%>
+<%@page import="java.util.List"%>
 <%@page import="bancaonline.entity.Movimiento"%>
 
 
@@ -21,50 +23,57 @@
             }
     </style>
     <%
-        Movimiento mov = (Movimiento) session.getAttribute("movimiento");
+        List<Movimiento> movimientos = (List<Movimiento>) request.getAttribute("movimientosEncontrados");
         
      %>
             
     <body>
 
-        
-
-        
         <ul>
-            <li><a href="inicioTrabajador.jsp">Inicio</a></li>
+            <li><a href="inicioUsuario.jsp">Inicio</a></li>
             <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
         </ul>
         
         
-        <h1>Movimiento <%= mov .getConcepto()%> encontrado</h1>
+        <%for(Movimiento m : movimientos){
+            
+        %>
+            
+        <h1>Movimiento <%= m .getConcepto()%> encontrado</h1>
         
-        <table>
+        <table border="1">
             <tr>
                 <th>Id Movimiento</th>
-                <th><%= mov.getIdCodigo().toString() %></th>
+                <th><%= m.getIdCodigo().toString() %></th>
             </tr>
             
             <tr>
                 <th>Fecha </th>
-                <th><%= mov.getFecha().toString() %></th>
+                <th><%= m.getFecha().toString() %></th>
             </tr>
             
             <tr>
                 <th>Concepto</th>
-                <th><%= mov.getConcepto() %></th>
+                <th><%= m.getConcepto() %></th>
             </tr>
             
             <tr>
                 <th>Cantidad</th>
-                <th><%= mov.getCantidad().toString() %></th>
+                <th><%= m.getCantidad().toString() %></th>
             </tr>
             
             <tr>
                 <th>IBAN </th>
-                <th><%= mov.getIban().getIdIBAN() %></th>
+                <th><%= m.getIban().getIdIBAN() %></th>
             </tr>
             
         </table>
+        
+        
+        
+        <%
+        } %>
+        
 
     </body>
 </html>

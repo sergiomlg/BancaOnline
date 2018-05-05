@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 
 <%
-    Usuario user=(Usuario) session.getAttribute("us");
+    Usuario user=(Usuario) request.getAttribute("us");
     
     %>
 <html>
