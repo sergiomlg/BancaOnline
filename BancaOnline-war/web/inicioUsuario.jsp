@@ -15,22 +15,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    
     <body>
         <ul>
             
-            <li><a href="inicioUsuario.jsp">Inicio</a></li> 
-            
+            <li><a href="inicioUsuario.jsp">Inicio</a></li>
             <li><a href="paginaCuenta.jsp">Cuenta</a></li>
+            <li><a href="buscarMovimientos.jsp">Buscar Movimientos</a></li>
             <li><a href="transferencia.jsp">Transferencias</a></li>
             <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
             
-        
-        
         </ul>
         
         <br/>
         <br/>
         
         <h1>Bienvenido, <%= user.getName() %></h1>
+        
+       <img src="imagenes/imagenes.jpg" />
     </body>
 </html>

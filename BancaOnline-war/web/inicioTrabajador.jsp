@@ -18,8 +18,8 @@
         <ul>
             
             <li><a href="inicioTrabajador.jsp">Inicio</a></li> 
-            
             <li><a href="realizarApunte.jsp">Realizar Movimientos</a></li>
+            
             <li><a href="darAlta.jsp">Dar de alta un nuevo usuario</a></li>
             <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
             
@@ -31,5 +31,6 @@
         <br/>
         
         <h1>Bienvenido, <%= e.getIdEmpleado() %></h1>
+        <img src="imagenes/imagenes.jpg" />
     </body>
 </html>

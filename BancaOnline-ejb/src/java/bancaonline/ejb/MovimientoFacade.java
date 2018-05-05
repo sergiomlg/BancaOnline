@@ -6,9 +6,16 @@
 package bancaonline.ejb;
 
 import bancaonline.entity.Movimiento;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +34,18 @@ public class MovimientoFacade extends AbstractFacade<Movimiento> {
 
     public MovimientoFacade() {
         super(Movimiento.class);
+    }
+    
+    public int getIdFromConcepto(String concepto){
+        int id = 0;
+         try {
+             Query q = this.em.createQuery("select idCodigo from movimiento where concepto = :cpto");
+             id = (int) q.setParameter("cpto",concepto).getFirstResult();
+             return id;
+        }catch(Exception e){
+            return 0;
+        }
+          
     }
     
 }

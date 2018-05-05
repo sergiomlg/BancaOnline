@@ -16,30 +16,24 @@
             body{
                 background-color: lightblue; 
             }
-            .button {
-            background-color: #4FAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            }
-            .content-box-gray {
-            background-color: #e2e2e2;
-            border: 1px solid #bdbdbd;
-            margin: 0 0 25px;
-            overflow: hidden;
-            padding: 20px;
-            }
+            
+            input[type=text] {
+            background-color: white;
+}
             
         </style>
+        
+        <ul>
+            <li><a href="inicioTrabajador.jsp">Inicio</a></li>
+            <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
+        </ul>
+        
         <h1>Buscar Movimientos</h1>
         
-        Introduce el concepto que desea buscar: <input type ="content-box-gray" name="concepto"/>
-        <a href="#" class="button">Enviar</a>
+        <body>
+        <form name="movimientos" action="BMovimientoServlet" method="post">
+        Introduce el concepto que desea buscar: <input type="text" name="concepto"/>
+        <input type="submit" value="Buscar">
+        </form>
     </body>
 </html>

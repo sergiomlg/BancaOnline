@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -52,10 +53,14 @@ public class DarAltaServlet extends HttpServlet {
         
         Cuenta cuenta= new Cuenta();
        
+        HttpSession session=request.getSession();
+        
         Usuario usuario;
         user = request.getParameter("user");
         contraseña = request.getParameter("password");
         surname = request.getParameter("apellidos");
+        
+        
         
         ncuenta=request.getParameter("ncuenta");
         nombre = request.getParameter("name");
@@ -79,6 +84,7 @@ public class DarAltaServlet extends HttpServlet {
         usuario.setTlf(Integer.parseInt(telefono));
         usuario.setCuentaList(new ArrayList());
         
+        session.setAttribute("us",usuario );
         
         cuenta.setIdIBAN(ncuenta);
         cuenta.setMovimientoList(new ArrayList());
@@ -86,7 +92,6 @@ public class DarAltaServlet extends HttpServlet {
         cuenta.setUser(usuario);
         cuenta.setMovimientoList(new ArrayList());
         
-       
        
         this.usuarioFacade.create(usuario);
         
@@ -99,7 +104,7 @@ public class DarAltaServlet extends HttpServlet {
         
         
         
-         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/inicioTrabajador.jsp");
+         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/darAltaConfirmacion.jsp");
         rd.forward(request, response); 
     }
 
