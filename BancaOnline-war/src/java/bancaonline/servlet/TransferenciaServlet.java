@@ -64,9 +64,7 @@ public class TransferenciaServlet extends HttpServlet {
         
         origen.setSaldo(origen.getSaldo()-cantidad);
         
-       // cuentaFacade.edit(cuentaD);
-        
-       // cuentaFacade.edit(origen);
+       
         
         Movimiento m = new Movimiento();
         
