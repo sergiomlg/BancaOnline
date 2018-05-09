@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<% 
+    String error= (String)request.getAttribute("error");
+%>
 <html>
     <head>
         <title>PostuBank</title>
@@ -35,7 +38,7 @@ and open the template in the editor.
     
     <body>
         
-        <form name="transferencia" action="LoginServlet" method="post">
+        <form name="login" action="LoginServlet" method="post">
         
         Usuario: <input type="text" name="usuario"/>
         <br/>
@@ -45,7 +48,9 @@ and open the template in the editor.
         <br/>
         <input type="submit" value="Enviar">
         <br/>
-        <font color="red">Usuario o contraseña erróneo!</font>
+        <% if(error !=null){ %>
+            <font color="red">Usuario o contraseña erróneo!</font>
+        <% }  %>
         </form>
     </body>
 </html>

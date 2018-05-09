@@ -66,7 +66,9 @@ public class LoginServlet extends HttpServlet {
 
             dispatcher.forward(request, response);
         }else{
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/errorLogin.jsp");
+            String error="Usuario y contraseña erroneos!";
+            request.setAttribute("error", error);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
             
             dispatcher.forward(request, response);
         }
