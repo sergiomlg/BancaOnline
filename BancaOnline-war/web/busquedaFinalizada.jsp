@@ -63,8 +63,12 @@
             </tr>
             
             <tr>
-                <th>IBAN </th>
-                <th><%= m.getIban().getIdIBAN() %></th>
+                <th>Cuenta Destino </th>
+                <% if(m.getCuenta()==null){ %>
+                    <th><%= m.getIban().getIdIBAN() %></th>
+                <% } else { %>
+                    <th>PostuBank</th>
+                <% } %>
             </tr>
             
         </table>

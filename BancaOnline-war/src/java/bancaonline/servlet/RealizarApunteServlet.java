@@ -40,20 +40,14 @@ public class RealizarApunteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String c = request.getParameter("saldo");
+        
+       
         String concepto= request.getParameter("concepto");
         String cuenta = request.getParameter("cuentad");
         Cuenta cuentabbdd = cuentaf.find(cuenta);
         String mensaje = null;
         if(cuentabbdd==null || cuenta.equalsIgnoreCase("")){
             mensaje= "No existe la cuenta introducida";
-            request.setAttribute("mensaje", mensaje);
-                    
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
-
-            dispatcher.forward(request, response);
-        }else if(c.equalsIgnoreCase("")){
-            mensaje = "Cantidad no valida";
             request.setAttribute("mensaje", mensaje);
                     
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
@@ -70,7 +64,18 @@ public class RealizarApunteServlet extends HttpServlet {
              
         Movimiento m = new Movimiento();
         int contador = movf.count();
-        m.setCantidad(Integer.parseInt(c));
+        
+        try {
+            int c = Integer.parseInt(request.getParameter("saldo"));
+             m.setCantidad(c);
+        } catch (NumberFormatException e) {
+            String error= "Cantidad no valida";
+            request.setAttribute("mensaje", error);
+                    
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
+            dispatcher.forward(request, response);
+        }
+       
         m.setConcepto(concepto);
         m.setCuenta(cuenta);
         m.setFecha(new Date());

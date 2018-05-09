@@ -21,7 +21,7 @@
             <li><a href="realizarApunte.jsp">Realizar Apunte</a></li>
             
             <li><a href="darAlta.jsp">Dar de alta un nuevo usuario</a></li>
-            <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
+            <li><a href="login.jsp">Cerrar Sesi&oacute;n</a></li>
             
         
         
