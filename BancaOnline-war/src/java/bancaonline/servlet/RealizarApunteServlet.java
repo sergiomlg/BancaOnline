@@ -40,16 +40,37 @@ public class RealizarApunteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int cantidad=Integer.parseInt(request.getParameter("saldo"));
+        String c = request.getParameter("saldo");
         String concepto= request.getParameter("concepto");
         String cuenta = request.getParameter("cuentad");
         Cuenta cuentabbdd = cuentaf.find(cuenta);
-        cuentabbdd.setSaldo(cuentabbdd.getSaldo()+cantidad);
-       // cuentaf.edit(cuentabbdd);
-        
+        String mensaje = null;
+        if(cuentabbdd==null || cuenta.equalsIgnoreCase("")){
+            mensaje= "No existe la cuenta introducida";
+            request.setAttribute("mensaje", mensaje);
+                    
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
+
+            dispatcher.forward(request, response);
+        }else if(c.equalsIgnoreCase("")){
+            mensaje = "Cantidad no valida";
+            request.setAttribute("mensaje", mensaje);
+                    
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
+
+            dispatcher.forward(request, response);
+        }else if(concepto.equalsIgnoreCase("")){
+            mensaje = "Debes introducir un concepto";
+            request.setAttribute("mensaje", mensaje);
+                    
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
+
+            dispatcher.forward(request, response);
+        }else{
+             
         Movimiento m = new Movimiento();
         int contador = movf.count();
-        m.setCantidad(cantidad);
+        m.setCantidad(Integer.parseInt(c));
         m.setConcepto(concepto);
         m.setCuenta(cuenta);
         m.setFecha(new Date());
@@ -61,6 +82,9 @@ public class RealizarApunteServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/inicioTrabajador.jsp");
 
         dispatcher.forward(request, response);
+        }
+
+       
         
        
     }
