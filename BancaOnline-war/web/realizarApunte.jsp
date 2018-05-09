@@ -11,6 +11,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Realizar Apunte-PostuBank</title>
     </head>
+    <style>
+        body{
+                background-color: lightblue; 
+                font-family: Georgia, "Times New Roman",
+          Times, serif;
+            }
+    </style>
     <body>
         <h1>Realizar apunte</h1>
         <form name="apuntes" action="RealizarApunteServlet" method="post">

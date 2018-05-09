@@ -66,8 +66,8 @@ public class LoginServlet extends HttpServlet {
 
             dispatcher.forward(request, response);
         }else{
+            
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.html");
-
             dispatcher.forward(request, response);
         }
     }

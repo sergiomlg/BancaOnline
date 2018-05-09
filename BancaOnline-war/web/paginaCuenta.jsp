@@ -18,6 +18,12 @@
         table, th, td {
         border: 1px solid black;
         }
+     
+        body{
+                background-color: lightblue; 
+                font-family: Georgia, "Times New Roman",
+          Times, serif;
+            }
         </style>
     </head>
     <body>
@@ -43,6 +49,9 @@
                 </tr>
  
         </table>
-                <h1><%= user.getCuentaList().get(0).getMovimientoList().size() %></h1>
+                <h1>Numero de movimientos realizados: <%= user.getCuentaList().get(0).getMovimientoList().size() %></h1>
+                <br/>
+                <br/>
+                <input type="button" value="Volver atrás" onclick="history.back()" >
     </body>
 </html>

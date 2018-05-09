@@ -14,7 +14,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Transferencias-PostuBank</title>
     </head>
+    
+    <style>
+        body{
+                background-color: lightblue; 
+                font-family: Georgia, "Times New Roman",
+          Times, serif;
+            }
+    </style>
+    
     <body>
+        <ul>
+
+            <li><a href="inicioUsuario.jsp">Inicio</a></li>
+            <li><a href="login.html">Cerrar Sesi&oacute;n</a></li>
+        </ul>
+        
+        <br/>
+        
         <h1>Transferencias</h1>
         
         <form name="login" action="TransferenciaServlet" method="post">
@@ -29,5 +46,6 @@
         <br/>
         <input type="submit" value="Enviar">
         </form>
+        <input type="button" value="Volver atrás" onclick="history.back()" >
     </body>
 </html>
