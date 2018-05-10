@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% String mensaje = (String)request.getAttribute("mensaje"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,5 +33,8 @@
             <input type="submit" value="Enviar">
             <input type="button" value="Volver atrás" onclick="history.back()" >
         </form>
+        <% if(mensaje != null){ %>
+         <font color="red"><%= mensaje.toString() %></font>
+        <% } %>
     </body>
 </html>

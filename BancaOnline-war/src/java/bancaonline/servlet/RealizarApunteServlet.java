@@ -50,14 +50,14 @@ public class RealizarApunteServlet extends HttpServlet {
             mensaje= "No existe la cuenta introducida";
             request.setAttribute("mensaje", mensaje);
                     
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/realizarApunte.jsp");
 
             dispatcher.forward(request, response);
         }else if(concepto.equalsIgnoreCase("")){
             mensaje = "Debes introducir un concepto";
             request.setAttribute("mensaje", mensaje);
                     
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/realizarApunte.jsp");
 
             dispatcher.forward(request, response);
         }else{
@@ -72,7 +72,7 @@ public class RealizarApunteServlet extends HttpServlet {
             String error= "Cantidad no valida";
             request.setAttribute("mensaje", error);
                     
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ErrorRealizarApunte.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/realizarApunte.jsp");
             dispatcher.forward(request, response);
         }
        
