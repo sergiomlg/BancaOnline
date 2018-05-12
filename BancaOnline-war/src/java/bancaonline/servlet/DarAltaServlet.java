@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -49,19 +50,17 @@ public class DarAltaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
-        String user, contraseña, nombre, surname, fechaNac, email, domicilio1, telefono,ncuenta;
+        String user, contrasena, nombre, surname, fechaNac, email, domicilio1, telefono,ncuenta;
         
         Cuenta cuenta= new Cuenta();
        
-        HttpSession session=request.getSession();
         
+        List<String> errores = new ArrayList();
+        String error ="";
         Usuario usuario;
         user = request.getParameter("user");
-        contraseña = request.getParameter("password");
+        contrasena = request.getParameter("password");
         surname = request.getParameter("apellidos");
-        
-        
-        
         ncuenta=request.getParameter("ncuenta");
         nombre = request.getParameter("name");
         email = request.getParameter("email");               
@@ -70,9 +69,49 @@ public class DarAltaServlet extends HttpServlet {
         fechaNac = request.getParameter("fechaNac");
         Date fecha1 = null;
         fecha1 = fecha.parse(fechaNac);
+        telefono = request.getParameter("telefono");  
         
-        telefono = request.getParameter("telefono");                
-        
+        if(user.equalsIgnoreCase("")){
+            error = error + "Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }else if(contrasena.equalsIgnoreCase("")){
+            error = error +"Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }else if(surname.equalsIgnoreCase("")){
+            error =error + "Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }else if(ncuenta.equalsIgnoreCase("")){
+            error =error + "Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }else if(nombre.equalsIgnoreCase("")){
+            error = error +"Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }else if(email.equalsIgnoreCase("")){
+            error = error + "Faltan datos por introducir.";
+            request.setAttribute("error", error);
+           
+        }else if(domicilio1.equalsIgnoreCase("")){
+            error =error + "Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }else if(fechaNac.equalsIgnoreCase("")){
+            error = error + "Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }else if(telefono.equalsIgnoreCase("")){
+            error =error + "Faltan datos por introducir.";
+            request.setAttribute("error", error);
+            
+        }
+        if(error.equalsIgnoreCase("")){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/darAlta.jsp");
+            dispatcher.forward(request, response);
+        }else {
         usuario = new Usuario();
         usuario.setIdUsuario(user);//es el DNI
         usuario.setSurname(surname);
@@ -80,7 +119,7 @@ public class DarAltaServlet extends HttpServlet {
         usuario.setEmail(email);
         usuario.setFechaNac(fecha1);
         usuario.setName(nombre);
-        usuario.setPassword(contraseña);
+        usuario.setPassword(contrasena);
         usuario.setTlf(Integer.parseInt(telefono));
         usuario.setCuentaList(new ArrayList());
         
@@ -101,11 +140,13 @@ public class DarAltaServlet extends HttpServlet {
         
         this.usuarioFacade.edit(usuario);
         
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/darAltaConfirmacion.jsp");
+        rd.forward(request, response);
+        
+        }
         
         
-        
-         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/darAltaConfirmacion.jsp");
-        rd.forward(request, response); 
+          
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
