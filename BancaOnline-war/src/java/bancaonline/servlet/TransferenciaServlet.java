@@ -46,25 +46,72 @@ public class TransferenciaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int cantidad=Integer.parseInt(request.getParameter("saldo"));
+          HttpSession session=request.getSession();
+        
+        Cuenta cuentaD = new Cuenta();
+        
+         int cantidad = 0;
+        
+        String error = "";
+        
+        String cant = request.getParameter("saldo");
         
         String concepto= request.getParameter("concepto");
-        
-        HttpSession session=request.getSession();
         
         Usuario usuario= (Usuario)session.getAttribute("user");
         
         Cuenta origen=usuario.getCuentaList().get(0);
         
         String cuentaDestino= request.getParameter("cuentad");
-       
-        Cuenta cuentaD= cuentaFacade.find(cuentaDestino);
         
+        //intento de q salgan todos los errores a la vez
+        
+        if(cant.equalsIgnoreCase("")){
+            error = error + "Cantidad no introducida.\n ";
+            request.setAttribute("error", error);
+            
+        }
+        
+        if(cuentaDestino.equalsIgnoreCase("")){
+            error = error + "Cuenta destino no introducida.\n ";
+            request.setAttribute("error", error);
+        }
+        
+        
+        if((cant.equalsIgnoreCase("") && cuentaDestino.equalsIgnoreCase(""))){
+            error = error + "Por favor rellene los campos cantidad y cuenta destino. \n";
+            request.setAttribute("error", error);
+        
+        try{
+           cuentaD= cuentaFacade.find(cuentaDestino);
+           if(cuentaD == null){
+               error = "Cuenta de destino no encontrada";
+               request.setAttribute("error", error);
+           }
+           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/transferencia.jsp");
+           dispatcher.forward(request, response);
+           
+        }catch(Exception e){
+           error = "Cuenta de destino no encontrada";
+           request.setAttribute("error", error);
+                    
+           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/transferencia.jsp");
+           dispatcher.forward(request, response);
+        }
+        
+        try{
+           cantidad=Integer.parseInt(cant);
+        }catch(Exception e){
+           error = "Cantidad introducida invalida";
+           request.setAttribute("error", error);
+                    
+           RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/transferencia.jsp");
+           dispatcher.forward(request, response);
+        }
+        origen.setSaldo(origen.getSaldo()-cantidad);
         cuentaD.setSaldo(cuentaD.getSaldo()+cantidad);
         
-        origen.setSaldo(origen.getSaldo()-cantidad);
         
-       
         
         Movimiento m = new Movimiento();
         
@@ -90,7 +137,15 @@ public class TransferenciaServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/paginaCuenta.jsp");
 
         dispatcher.forward(request, response);
-        
+            
+        }else{
+            
+            request.setAttribute(error, "error");
+            
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/transferencia.jsp");
+
+            dispatcher.forward(request, response);
+        }
         }
     
 

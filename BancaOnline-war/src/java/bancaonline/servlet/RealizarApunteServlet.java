@@ -67,6 +67,7 @@ public class RealizarApunteServlet extends HttpServlet {
         
         try {
             int c = Integer.parseInt(request.getParameter("saldo"));
+            cuentabbdd.setSaldo(cuentabbdd.getSaldo()+c);
              m.setCantidad(c);
         } catch (NumberFormatException e) {
             String error= "Cantidad no valida";
