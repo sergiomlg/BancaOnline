@@ -45,7 +45,7 @@
         <h1> Confirmacion del Alta </h1>
         
         
-        <table style="width:35%">
+        <table class="table table-sm">
             <tr>
                 <th>Numero de Cuenta</th>
                 <th><%= user.getCuentaList().get(0).getIdIBAN()%></th>
