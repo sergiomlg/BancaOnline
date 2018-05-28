@@ -39,16 +39,27 @@ public class DarDeAltaBean {
     private String email;
     private String direccion;
     private String ncuenta;
-    private int telefono=0;
+    private String telefono;
     private String fechaNac;
     private  SimpleDateFormat fecha1 = new SimpleDateFormat("yyyy-MM-dd");
     private Date fecha=null;
+    private String error;
 
     /**
      * Creates a new instance of DarDeAltaBean
      */
     public DarDeAltaBean() {
     }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+    
+    
 
     public String getNcuenta() {
         return ncuenta;
@@ -107,22 +118,29 @@ public class DarDeAltaBean {
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
+    public void setTelefono(String telefono) {
+        
+            this.telefono = telefono;
+
     }
 
     public String getFechaNac() {
         return fechaNac;
     }
 
-    public void setFechaNac(String fechaNac) throws ParseException {
-        this.fechaNac = fechaNac;
-        Date aux= fecha1.parse(fechaNac);
-        this.setFecha(aux);
+    public void setFechaNac(String fechaNac) {
+        try{
+            this.fechaNac = fechaNac;
+             Date aux= fecha1.parse(fechaNac);
+            this.setFecha(aux);
+        }catch (ParseException e){
+            error = "Formato fecha errónea";
+        }
+        
     }
 
     public Date getFecha() {
@@ -134,38 +152,46 @@ public class DarDeAltaBean {
     }
     
     public String darDealta(){
+        int telf=0;
+        try{
+            telf=Integer.parseInt(this.telefono);
+        }catch (NumberFormatException e){
+            error= "Teléfono no válido";
+            return "darDeAlta";
+        }
         if(usuario.equalsIgnoreCase("") || password.equalsIgnoreCase("") || apellidos.equalsIgnoreCase("") 
                 || ncuenta.equalsIgnoreCase("") || nombre.equalsIgnoreCase("") || email.equalsIgnoreCase("")
-                || direccion.equalsIgnoreCase("") || fechaNac.equalsIgnoreCase("") || telefono == 0){
+                || direccion.equalsIgnoreCase("") || fechaNac.equalsIgnoreCase("") || telf == 0){
+            error = "Datos no válidos";
             return "darDeAlta";
         }else{
-        Usuario usuario = new Usuario();
-        usuario.setIdUsuario(this.usuario);//es el DNI
-        usuario.setSurname(apellidos);
-        usuario.setDireccion(direccion);
-        usuario.setEmail(email);
-        usuario.setFechaNac(fecha);
-        usuario.setName(nombre);
-        usuario.setPassword(password);
-        usuario.setTlf(telefono);
-        usuario.setCuentaList(new ArrayList());
+        Usuario user = new Usuario();
+        user.setIdUsuario(this.usuario);//es el DNI
+        user.setSurname(apellidos);
+        user.setDireccion(direccion);
+        user.setEmail(email);
+        user.setFechaNac(fecha);
+        user.setName(nombre);
+        user.setPassword(password);
+        user.setTlf(telf);
+        user.setCuentaList(new ArrayList());
         
        
         Cuenta cuenta= new Cuenta();
         cuenta.setIdIBAN(ncuenta);
         cuenta.setMovimientoList(new ArrayList());
         cuenta.setSaldo(100);//Por defecto
-        cuenta.setUser(usuario);
+        cuenta.setUser(user);
         
         
        
-        this.usuarioFacade.create(usuario);
+        this.usuarioFacade.create(user);
         
         this.cuentaFacade.create(cuenta);
         
-        usuario.getCuentaList().add(cuenta);
+        user.getCuentaList().add(cuenta);
         
-        this.usuarioFacade.edit(usuario);
+        this.usuarioFacade.edit(user);
         
         return "darDeAlta";
         }
