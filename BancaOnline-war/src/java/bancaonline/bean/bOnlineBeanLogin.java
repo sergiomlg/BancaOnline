@@ -5,8 +5,10 @@
  */
 package bancaonline.bean;
 
+import bancaonline.ejb.CuentaFacade;
 import bancaonline.ejb.EmpleadoFacade;
 import bancaonline.ejb.UsuarioFacade;
+import bancaonline.entity.Cuenta;
 import bancaonline.entity.Empleado;
 import bancaonline.entity.Usuario;
 import javax.inject.Named;
@@ -27,14 +29,21 @@ public class bOnlineBeanLogin implements Serializable {
      */
     @EJB UsuarioFacade usuarioFacade;
     @EJB EmpleadoFacade empleadoFacade;
+    @EJB CuentaFacade cuentaFacade;
     
         private String user="";
         private String password="";
         private Usuario usuario = new Usuario();
         private Empleado empleado = new Empleado();
+        
+        private Cuenta cuentaTrans=new Cuenta();
 
     public String getUser() {
         return user;
+    }
+    
+    public Cuenta getCuentaTrans() {
+        return cuentaTrans;
     }
 
     public void setUser(String user) {
@@ -43,6 +52,10 @@ public class bOnlineBeanLogin implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+    
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     public void setPassword(String password) {
@@ -64,8 +77,20 @@ public class bOnlineBeanLogin implements Serializable {
             empleado = em;
         }else{
             res="login";
+            
         }
         
         return res;
     }
+    
+    public String doRealizarTransferencia(String idCuenta){
+        cuentaTrans= cuentaFacade.find(idCuenta);
+        return "transferencia";
+    }
+    
+    public String doBuscarMovimientos(){
+        return "buscarMovimientos";
+        
+    }
+    
 }
