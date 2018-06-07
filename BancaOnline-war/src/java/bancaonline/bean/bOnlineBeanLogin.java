@@ -36,6 +36,7 @@ public class bOnlineBeanLogin implements Serializable {
         private Usuario usuario = new Usuario();
         private Empleado empleado = new Empleado();
         
+        private Cuenta cuenta= new Cuenta();
         private Cuenta cuentaTrans=new Cuenta();
 
     public Integer getUser() {
@@ -66,11 +67,28 @@ public class bOnlineBeanLogin implements Serializable {
         return usuario;
     }
 
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
     public bOnlineBeanLogin() {
     }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+    
     
     public String doLogin(){
         String res = "";
@@ -80,6 +98,7 @@ public class bOnlineBeanLogin implements Serializable {
         if(us!=null && us.getPassword().equals(password)){
             res="inicioUsuario";
             usuario = us;
+            cuenta = usuario.getCuentaList().get(0);
         }else if(em!=null && em.getPassword().equals(password)){
             res="inicioTrabajador";
             empleado = em;
