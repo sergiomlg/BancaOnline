@@ -92,8 +92,8 @@ public class bOnlineBeanTransferencia {
         mov.setCantidad(cantidad);
         mov.setConcepto(concepto);
         mov.setFecha(new Date());
-        mov.setIban(cuenta); 
-        mov.setIdCodigo(contador+1);
+        mov.setCuentaOrigen(cuenta); 
+        
         
         movimientoFacade.create(mov);
         

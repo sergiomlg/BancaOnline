@@ -26,7 +26,7 @@ public class bOnlineBean implements Serializable {
    
    private List<Usuario> listaClientes;
    
-   private String idUsuarioSeleccionado;
+   private Integer idUsuarioSeleccionado;
    
     
     public bOnlineBean() {
@@ -40,11 +40,11 @@ public class bOnlineBean implements Serializable {
         this.listaClientes = listaClientes;
     }
 
-    public String getIdUsuarioSeleccionado() {
+    public Integer getIdUsuarioSeleccionado() {
         return idUsuarioSeleccionado;
     }
 
-    public void setIdUsuarioSeleccionado(String idUsuarioSeleccionado) {
+    public void setIdUsuarioSeleccionado(Integer idUsuarioSeleccionado) {
         this.idUsuarioSeleccionado = idUsuarioSeleccionado;
     }
     
@@ -55,12 +55,12 @@ public class bOnlineBean implements Serializable {
         listaClientes = this.userFacade.findAll();
     }
     
-    public String doEditar(String idUsuario){
+    public String doEditar(Integer idUsuario){
         this.idUsuarioSeleccionado = idUsuario;
         return "editarCliente.xhtml";
     }
     
-    public String doEliminar(String idUsuario){
+    public String doEliminar(Integer idUsuario){
         return "listaClientes.xhtml";
     }
     

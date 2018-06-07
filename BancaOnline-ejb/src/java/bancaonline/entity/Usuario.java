@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,10 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author W10
+ * @author EzequielRodriguez
  */
 @Entity
-@Table(name = "usuario")
+@Table(name = "Usuario")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
@@ -46,9 +47,8 @@ public class Usuario implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "idUsuario")
-    private String idUsuario;
+    private Integer idUsuario;
     @Size(max = 45)
     @Column(name = "password")
     private String password;
@@ -66,25 +66,25 @@ public class Usuario implements Serializable {
     private String direccion;
     @Column(name = "tlf")
     private Integer tlf;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Correo electrónico no válido")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 45)
     @Column(name = "email")
     private String email;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Cuenta> cuentaList;
 
     public Usuario() {
     }
 
-    public Usuario(String idUsuario) {
+    public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -175,7 +175,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "bancaonline.ejb.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "bancaonline.entity.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

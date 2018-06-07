@@ -8,6 +8,7 @@ package bancaonline.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,16 +19,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author W10
+ * @author EzequielRodriguez
  */
 @Entity
-@Table(name = "cuenta")
+@Table(name = "Cuenta")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c")
@@ -39,29 +39,28 @@ public class Cuenta implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
     @Column(name = "idIBAN")
-    private String idIBAN;
+    private Integer idIBAN;
     @Column(name = "saldo")
     private Integer saldo;
-    @OneToMany(mappedBy = "iban")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuentaOrigen")
     private List<Movimiento> movimientoList;
     @JoinColumn(name = "user", referencedColumnName = "idUsuario")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Usuario user;
 
     public Cuenta() {
     }
 
-    public Cuenta(String idIBAN) {
+    public Cuenta(Integer idIBAN) {
         this.idIBAN = idIBAN;
     }
 
-    public String getIdIBAN() {
+    public Integer getIdIBAN() {
         return idIBAN;
     }
 
-    public void setIdIBAN(String idIBAN) {
+    public void setIdIBAN(Integer idIBAN) {
         this.idIBAN = idIBAN;
     }
 
@@ -112,7 +111,7 @@ public class Cuenta implements Serializable {
 
     @Override
     public String toString() {
-        return "bancaonline.ejb.Cuenta[ idIBAN=" + idIBAN + " ]";
+        return "bancaonline.entity.Cuenta[ idIBAN=" + idIBAN + " ]";
     }
     
 }

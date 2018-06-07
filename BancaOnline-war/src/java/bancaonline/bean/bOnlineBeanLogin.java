@@ -31,22 +31,30 @@ public class bOnlineBeanLogin implements Serializable {
     @EJB EmpleadoFacade empleadoFacade;
     @EJB CuentaFacade cuentaFacade;
     
-        private String user="";
+        private Integer user;
         private String password="";
         private Usuario usuario = new Usuario();
         private Empleado empleado = new Empleado();
         
         private Cuenta cuentaTrans=new Cuenta();
 
-    public String getUser() {
+    public Integer getUser() {
         return user;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
     
     public Cuenta getCuentaTrans() {
         return cuentaTrans;
     }
 
-    public void setUser(String user) {
+    public void setUser(Integer user) {
         this.user = user;
     }
 
