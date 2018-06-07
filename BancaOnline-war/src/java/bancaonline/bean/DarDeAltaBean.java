@@ -32,18 +32,20 @@ public class DarDeAltaBean {
     @EJB
     private UsuarioFacade usuarioFacade;
 
-    private String usuario;
+    private Integer usuario;
     private String password;
+    private String passConfir;
     private String nombre;
     private String apellidos;
     private String email;
     private String direccion;
-    private String ncuenta;
+    private Integer ncuenta;
     private String telefono;
     private String fechaNac;
     private  SimpleDateFormat fecha1 = new SimpleDateFormat("yyyy-MM-dd");
     private Date fecha=null;
     private String error;
+    private Integer saldoInicial;
 
     /**
      * Creates a new instance of DarDeAltaBean
@@ -55,26 +57,44 @@ public class DarDeAltaBean {
         return error;
     }
 
+    public String getPassConfir() {
+        return passConfir;
+    }
+
+    public void setPassConfir(String passConfir) {
+        this.passConfir = passConfir;
+    }
+    
+    
+
     public void setError(String error) {
         this.error = error;
     }
+
+    public Integer getSaldoInicial() {
+        return saldoInicial;
+    }
+
+    public void setSaldoInicial(Integer saldoInicial) {
+        this.saldoInicial = saldoInicial;
+    }
     
     
 
-    public String getNcuenta() {
+    public Integer getNcuenta() {
         return ncuenta;
     }
 
-    public void setNcuenta(String ncuenta) {
+    public void setNcuenta(Integer ncuenta) {
         this.ncuenta = ncuenta;
     }
 
     
-    public String getUsuario() {
+    public Integer getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(Integer usuario) {
         this.usuario = usuario;
     }
 
@@ -152,16 +172,21 @@ public class DarDeAltaBean {
     }
     
     public String darDealta(){
+        if(!password.equals(passConfir)){
+           error="Las contraseñas no coinciden";
+           return "darDeAlta";
+        }
+        
         int telf=0;
         try{
             telf=Integer.parseInt(this.telefono);
         }catch (NumberFormatException e){
             error= "Teléfono no válido";
-            return "darDeAlta";
+            
         }
-        if(usuario.equalsIgnoreCase("") || password.equalsIgnoreCase("") || apellidos.equalsIgnoreCase("") 
-                || ncuenta.equalsIgnoreCase("") || nombre.equalsIgnoreCase("") || email.equalsIgnoreCase("")
-                || direccion.equalsIgnoreCase("") || fechaNac.equalsIgnoreCase("") || telf == 0){
+        if(usuario==null || password.equalsIgnoreCase("") || apellidos.equalsIgnoreCase("") 
+                || ncuenta==null|| nombre.equalsIgnoreCase("") || email.equalsIgnoreCase("")
+                || direccion.equalsIgnoreCase("") || fechaNac.equalsIgnoreCase("") || telf == 0 || saldoInicial==null){
             error = "Datos no válidos";
             return "darDeAlta";
         }else{
@@ -180,7 +205,7 @@ public class DarDeAltaBean {
         Cuenta cuenta= new Cuenta();
         cuenta.setIdIBAN(ncuenta);
         cuenta.setMovimientoList(new ArrayList());
-        cuenta.setSaldo(100);//Por defecto
+        cuenta.setSaldo(saldoInicial);//Por defecto
         cuenta.setUser(user);
         
         
@@ -193,7 +218,7 @@ public class DarDeAltaBean {
         
         this.usuarioFacade.edit(user);
         
-        return "darDeAlta";
+        return "buscarMovimientos";
         }
         
         

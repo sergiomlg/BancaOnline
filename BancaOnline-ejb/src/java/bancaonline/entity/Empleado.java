@@ -6,19 +6,16 @@
 package bancaonline.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,27 +34,24 @@ public class Empleado implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "idEmpleado")
-    private String idEmpleado;
+    private Integer idEmpleado;
     @Size(max = 45)
     @Column(name = "password")
     private String password;
-    @OneToMany(mappedBy = "empleado")
-    private List<Movimiento> movimientoList;
 
     public Empleado() {
     }
 
-    public Empleado(String idEmpleado) {
+    public Empleado(Integer idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 
-    public String getIdEmpleado() {
+    public Integer getIdEmpleado() {
         return idEmpleado;
     }
 
-    public void setIdEmpleado(String idEmpleado) {
+    public void setIdEmpleado(Integer idEmpleado) {
         this.idEmpleado = idEmpleado;
     }
 
@@ -67,15 +61,6 @@ public class Empleado implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @XmlTransient
-    public List<Movimiento> getMovimientoList() {
-        return movimientoList;
-    }
-
-    public void setMovimientoList(List<Movimiento> movimientoList) {
-        this.movimientoList = movimientoList;
     }
 
     @Override
@@ -100,7 +85,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "bancaonline.ejb.Empleado[ idEmpleado=" + idEmpleado + " ]";
+        return "bancaonline.entity.Empleado[ idEmpleado=" + idEmpleado + " ]";
     }
     
 }

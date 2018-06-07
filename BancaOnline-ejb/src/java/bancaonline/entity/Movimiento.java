@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,13 +38,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Movimiento.findByConcepto", query = "SELECT m FROM Movimiento m WHERE m.concepto = :concepto")
     , @NamedQuery(name = "Movimiento.findByCantidad", query = "SELECT m FROM Movimiento m WHERE m.cantidad = :cantidad")
     , @NamedQuery(name = "Movimiento.findByObservacion", query = "SELECT m FROM Movimiento m WHERE m.observacion = :observacion")
-    , @NamedQuery(name = "Movimiento.findByCuenta", query = "SELECT m FROM Movimiento m WHERE m.cuenta = :cuenta")})
+    , @NamedQuery(name = "Movimiento.findByCuentaDestino", query = "SELECT m FROM Movimiento m WHERE m.cuentaDestino = :cuentaDestino")})
 public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idCodigo")
     private Integer idCodigo;
     @Column(name = "fecha")
@@ -56,21 +58,24 @@ public class Movimiento implements Serializable {
     @Size(max = 45)
     @Column(name = "observacion")
     private String observacion;
-    @Size(max = 20)
-    @Column(name = "cuenta")
-    private String cuenta;
-    @JoinColumn(name = "empleado", referencedColumnName = "idEmpleado")
-    @ManyToOne
-    private Empleado empleado;
-    @JoinColumn(name = "IBAN", referencedColumnName = "idIBAN")
-    @ManyToOne
-    private Cuenta iban;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "cuenta_destino")
+    private int cuentaDestino;
+    @JoinColumn(name = "cuenta_origen", referencedColumnName = "idIBAN")
+    @ManyToOne(optional = false)
+    private Cuenta cuentaOrigen;
 
     public Movimiento() {
     }
 
     public Movimiento(Integer idCodigo) {
         this.idCodigo = idCodigo;
+    }
+
+    public Movimiento(Integer idCodigo, int cuentaDestino) {
+        this.idCodigo = idCodigo;
+        this.cuentaDestino = cuentaDestino;
     }
 
     public Integer getIdCodigo() {
@@ -113,28 +118,20 @@ public class Movimiento implements Serializable {
         this.observacion = observacion;
     }
 
-    public String getCuenta() {
-        return cuenta;
+    public int getCuentaDestino() {
+        return cuentaDestino;
     }
 
-    public void setCuenta(String cuenta) {
-        this.cuenta = cuenta;
+    public void setCuentaDestino(int cuentaDestino) {
+        this.cuentaDestino = cuentaDestino;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Cuenta getCuentaOrigen() {
+        return cuentaOrigen;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
-    public Cuenta getIban() {
-        return iban;
-    }
-
-    public void setIban(Cuenta iban) {
-        this.iban = iban;
+    public void setCuentaOrigen(Cuenta cuentaOrigen) {
+        this.cuentaOrigen = cuentaOrigen;
     }
 
     @Override
@@ -159,7 +156,7 @@ public class Movimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "bancaonline.ejb.Movimiento[ idCodigo=" + idCodigo + " ]";
+        return "bancaonline.entity.Movimiento[ idCodigo=" + idCodigo + " ]";
     }
     
 }

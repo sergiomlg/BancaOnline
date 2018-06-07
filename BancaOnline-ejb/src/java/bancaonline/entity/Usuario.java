@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -46,9 +47,8 @@ public class Usuario implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "idUsuario")
-    private String idUsuario;
+    private Integer idUsuario;
     @Size(max = 45)
     @Column(name = "password")
     private String password;
@@ -70,21 +70,21 @@ public class Usuario implements Serializable {
     @Size(max = 45)
     @Column(name = "email")
     private String email;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Cuenta> cuentaList;
 
     public Usuario() {
     }
 
-    public Usuario(String idUsuario) {
+    public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -175,7 +175,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "bancaonline.ejb.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "bancaonline.entity.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

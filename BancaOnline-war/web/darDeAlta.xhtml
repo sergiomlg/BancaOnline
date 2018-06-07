@@ -10,13 +10,18 @@
         <h:form>
             <table>
                 <tr>
-                    <td>Usuario</td>
+                    <td>Usuario(debe ser el DNI)</td>
                     <td> <h:inputText value="#{darDeAltaBean.usuario}"/></td>
                 </tr>
                 <tr>
                     <td>Contraseña</td>
                     <td><h:inputText value="#{darDeAltaBean.password}"/></td>
                 </tr>
+                <tr>
+                    <td>Confirmación de contraseña</td>
+                    <td><h:inputText value="#{darDeAltaBean.passConfir}"/></td>
+                </tr>
+                
                 <tr>
                     <td>Nombre</td>
                     <td><h:inputText value="#{darDeAltaBean.nombre}"/></td>
@@ -45,16 +50,24 @@
                     <td>N&uacute;mero de cuenta</td>
                     <td><h:inputText value="#{darDeAltaBean.ncuenta}"/></td>
                 </tr>
+                
+                <tr>
+                    <td>Saldo inicial</td>
+                    <td><h:inputText value="#{darDeAltaBean.ncuenta}"/></td>
+                </tr>
             </table>
            
             <h:commandButton action="#{darDeAltaBean.darDealta()}" value="Dar de alta">
-                             <f:ajax execute ="@form"
-                                     render="ajaxMessage1"/>
+               
+                     
             </h:commandButton>
+                           
+            
            
         </h:form>
-        <font> <h:outputText value="#{darDeAltaBean.error}"
+        <font color="red"> <h:outputText value="#{darDeAltaBean.error}"
                              id="ajaxMessage1"/></font>
+        
     </h:body>
 </html>
 
