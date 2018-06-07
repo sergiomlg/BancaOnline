@@ -43,13 +43,6 @@ public class bOnlineBeanLogin implements Serializable {
         return user;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
     
     public Cuenta getCuentaTrans() {
         return cuentaTrans;
@@ -110,7 +103,7 @@ public class bOnlineBeanLogin implements Serializable {
         return res;
     }
     
-    public String doRealizarTransferencia(String idCuenta){
+    public String doRealizarTransferencia(Integer idCuenta){
         cuentaTrans= cuentaFacade.find(idCuenta);
         return "transferencia";
     }

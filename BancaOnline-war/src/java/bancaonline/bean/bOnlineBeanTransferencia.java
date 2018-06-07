@@ -43,7 +43,7 @@ public class bOnlineBeanTransferencia {
      */
     
     protected Cuenta cuentaDestino, cuenta;
-    protected String idIBAN;
+    protected Integer idIBAN;
     protected int cantidad;
     protected String concepto;
     
@@ -58,11 +58,11 @@ public class bOnlineBeanTransferencia {
         this.concepto = concepto;
     }
 
-    public String getIdIBAN() {
+    public Integer getIdIBAN() {
         return idIBAN;
     }
 
-    public void setIdIBAN(String idIBAN) {
+    public void setIdIBAN(Integer idIBAN) {
         this.idIBAN = idIBAN;
     }
 

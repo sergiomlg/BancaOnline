@@ -30,7 +30,7 @@ public class bOnlineBeanMovimientos {
     private Usuario user;
     private Cuenta cuenta;
     private List<Movimiento> listaMovimientos, listaMovimientosFiltrado;
-    private String concepto;
+    private String concepto="";
     /**
      * Creates a new instance of bOnlineBeanMovimientos
      */
@@ -47,6 +47,7 @@ public class bOnlineBeanMovimientos {
     }
     
     public void filtrar(){
+        
         listaMovimientosFiltrado= new ArrayList<>();
         for(Movimiento m : listaMovimientos){
             if(m.getConcepto().equalsIgnoreCase(concepto)){

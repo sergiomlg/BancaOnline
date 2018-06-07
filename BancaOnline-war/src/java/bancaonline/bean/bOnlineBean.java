@@ -64,4 +64,8 @@ public class bOnlineBean implements Serializable {
         return "listaClientes.xhtml";
     }
     
+    public String doInicio(){
+        return "inicioTrabajador.xhtml";
+    }
+    
 }

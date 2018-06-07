@@ -9,8 +9,9 @@
     <h:body>
         <h:form>
             Introduce el concepto que desea buscar: <h:inputText value="#{bOnlineBeanMovimientos.concepto}" />
-            <h:commandButton value="Enviar"  />
-            <f:ajax listener="#{bOnlineBeanMovimientos.filtrar()}"render="formTable"/>
+            <h:commandButton value="Enviar">
+                <f:ajax listener="#{bOnlineBeanMovimientos.filtrar()}" render=":formTable"/>
+            </h:commandButton>
         </h:form>
         
         <h:form id="formTable">

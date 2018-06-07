@@ -33,8 +33,10 @@
                 <h:column>
                     <h:commandButton action="#{bOnlineBean.doEliminar(cliente.idUsuario)}" value="Eliminar"/>
                 </h:column>
-            </h:dataTable>
+            </h:dataTable> 
+            <h:commandButton action="#{bOnlineBean.doInicio()}" value="Volver al Inicio"/>
         </h:form>
+        
     </h:body>
 </html>
 
