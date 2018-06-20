@@ -53,12 +53,12 @@
                 
                 <tr>
                     <td>Saldo inicial</td>
-                    <td><h:inputText value="#{darDeAltaBean.ncuenta}"/></td>
+                    <td><h:inputText value="#{darDeAltaBean.saldoInicial}"/></td>
                 </tr>
             </table>
            
             <h:commandButton action="#{darDeAltaBean.darDealta()}" value="Dar de alta">
-               
+                <f:ajax execute="@form" render="ajaxMessage1"/>
                      
             </h:commandButton>
                            
