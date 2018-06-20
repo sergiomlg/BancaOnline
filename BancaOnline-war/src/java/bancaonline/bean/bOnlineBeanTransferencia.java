@@ -10,12 +10,12 @@ import bancaonline.ejb.MovimientoFacade;
 import bancaonline.ejb.UsuarioFacade;
 import bancaonline.entity.Cuenta;
 import bancaonline.entity.Movimiento;
-import java.time.Instant;
+
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
@@ -44,7 +44,7 @@ public class bOnlineBeanTransferencia {
     
     protected Cuenta cuentaDestino, cuenta;
     protected Integer idIBAN;
-    protected int cantidad;
+    protected Integer cantidad;
     protected String concepto;
     
     public bOnlineBeanTransferencia() {
@@ -73,32 +73,34 @@ public class bOnlineBeanTransferencia {
 
     
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
     
     public String doRealizar(){
         this.cuentaDestino = cuentaFacade.find(idIBAN);
-        this.cuenta = beanLogin.getCuentaTrans();
+        
+        Integer saldo= cuenta.getSaldo();
         cuenta.setSaldo(cuenta.getSaldo()-cantidad);
         cuentaDestino.setSaldo(cuentaDestino.getSaldo()+cantidad);
-        int contador= movimientoFacade.count();
+        
         
         Movimiento mov = new Movimiento();
         mov.setCantidad(cantidad);
         mov.setConcepto(concepto);
         mov.setFecha(new Date());
         mov.setCuentaOrigen(cuenta); 
+        mov.setCuentaDestino(cuentaDestino.getIdIBAN());
         
         
         movimientoFacade.create(mov);
         
-        cuenta.getMovimientoList().add(mov);
-        cuentaDestino.getMovimientoList().add(mov);
+        //cuenta.getMovimientoList().add(mov);
+        //cuentaDestino.getMovimientoList().add(mov);
         cuentaFacade.edit(cuenta);
         cuentaFacade.edit(cuentaDestino);
         
@@ -109,7 +111,7 @@ public class bOnlineBeanTransferencia {
     
     @PostConstruct
     public void init () {
-        cuenta = beanLogin.getCuentaTrans();
+        cuenta = beanLogin.getUsuario().getCuentaList().get(0);
         
     }
     

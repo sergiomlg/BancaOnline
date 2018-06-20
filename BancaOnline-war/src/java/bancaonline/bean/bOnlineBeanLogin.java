@@ -37,16 +37,18 @@ public class bOnlineBeanLogin implements Serializable {
         private Empleado empleado = new Empleado();
         
         private Cuenta cuenta= new Cuenta();
-        private Cuenta cuentaTrans=new Cuenta();
-
+        
+    
+    public bOnlineBeanLogin() {
+    }
+        
+        
     public Integer getUser() {
         return user;
     }
 
     
-    public Cuenta getCuentaTrans() {
-        return cuentaTrans;
-    }
+    
 
     public void setUser(Integer user) {
         this.user = user;
@@ -71,8 +73,7 @@ public class bOnlineBeanLogin implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public bOnlineBeanLogin() {
-    }
+   
 
     public Empleado getEmpleado() {
         return empleado;
@@ -103,10 +104,10 @@ public class bOnlineBeanLogin implements Serializable {
         return res;
     }
     
-    public String doRealizarTransferencia(Integer idCuenta){
+    /*public String doRealizarTransferencia(Integer idCuenta){
         cuentaTrans= cuentaFacade.find(idCuenta);
         return "transferencia";
-    }
+    }*/
     
     public String doBuscarMovimientos(){
         return "buscarMovimientos";

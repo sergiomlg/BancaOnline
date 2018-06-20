@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
@@ -30,7 +30,7 @@ public class bOnlineBeanMovimientos {
     private Usuario user;
     private Cuenta cuenta;
     private List<Movimiento> listaMovimientos, listaMovimientosFiltrado;
-    private String concepto="";
+    private String concepto;
     /**
      * Creates a new instance of bOnlineBeanMovimientos
      */
@@ -41,7 +41,7 @@ public class bOnlineBeanMovimientos {
     @PostConstruct
     public void init(){
         user = sessionBean.getUsuario();
-        cuenta = sessionBean.getCuenta();
+        cuenta = user.getCuentaList().get(0);
         listaMovimientos = cuenta.getMovimientoList();
         listaMovimientosFiltrado=listaMovimientos;
     }

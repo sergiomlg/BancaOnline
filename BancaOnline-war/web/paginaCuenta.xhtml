@@ -29,10 +29,10 @@
             </h:column>
             
             <h:column>
-                <h:commandButton action="#{bOnlineBeanLogin.doRealizarTransferencia(cuenta.idIBAN)}" value="Realizar transferencia" />
+                <h:commandLink action="transferencia.xhtml" value="Realizar transferencia" />
             </h:column>            
             <h:column>
-                <h:commandButton action="#{bOnlineBeanLogin.doBuscarMovimientos()}" value="Buscar movimientos" />
+                <h:commandLink action="buscarMovimientos.xhtml" value="Buscar movimientos" />
             </h:column>            
             
         </h:dataTable>

@@ -9,13 +9,21 @@
     <h:body>
         <h:form>
             Introduce el concepto que desea buscar: <h:inputText value="#{bOnlineBeanMovimientos.concepto}" />
-            <h:commandButton value="Enviar">
-                <f:ajax listener="#{bOnlineBeanMovimientos.filtrar()}" render=":formTable"/>
+            <h:commandButton value="Enviar" action="#{bOnlineBeanMovimientos.filtrar()}">
+                <f:ajax render="formTable"/>
             </h:commandButton>
-        </h:form>
         
-        <h:form id="formTable">
-            <h:dataTable var="mov" value="#{bOnlineBeanMovimientos.listaMovimientosFiltrado} " border="1">
+        
+       
+            <h:dataTable var="mov" value="#{bOnlineBeanMovimientos.listaMovimientosFiltrado}" border="1" id="formTable">
+                <h:column>
+                    <f:facet name="header">Cuenta Origen</f:facet>
+                    #{mov.cuentaOrigen.idIBAN}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Cuenta Destino</f:facet>
+                    #{mov.cuentaDestino}
+                </h:column>
                 <h:column>
                     <f:facet name="header">Concepto</f:facet>
                     #{mov.concepto}
