@@ -61,7 +61,10 @@ public class bOnlineBean implements Serializable {
     }
     
     public String doEliminar(Integer idUsuario){
-        return "listaClientes.xhtml";
+        Usuario user = this.userFacade.find(idUsuario);
+        this.userFacade.remove(user);
+        this.init();
+        return "listadoClientes.xhtml";
     }
     
     public String doInicio(){
