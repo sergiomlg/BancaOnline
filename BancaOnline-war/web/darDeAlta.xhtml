@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>PostuBank - Dar de alta</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <table>
+                <tr>
+                    <td>Usuario(debe ser el DNI)</td>
+                    <td> <h:inputText value="#{darDeAltaBean.usuario}"/></td>
+                </tr>
+                <tr>
+                    <td>Contraseña</td>
+                    <td><h:inputText value="#{darDeAltaBean.password}"/></td>
+                </tr>
+                <tr>
+                    <td>Confirmación de contraseña</td>
+                    <td><h:inputText value="#{darDeAltaBean.passConfir}"/></td>
+                </tr>
+                
+                <tr>
+                    <td>Nombre</td>
+                    <td><h:inputText value="#{darDeAltaBean.nombre}"/></td>
+                </tr>
+                <tr>
+                    <td>Apellidos</td>
+                    <td> <h:inputText value="#{darDeAltaBean.apellidos}"/></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><h:inputText value="#{darDeAltaBean.email}"/></td>
+                </tr>
+                <tr>
+                    <td>Direcci&oacute;n</td>
+                    <td><h:inputText value="#{darDeAltaBean.direccion}"/></td>
+                </tr>
+                <tr>
+                    <td> Fecha Nacimiento: (formato yyyy-mm-dd)</td>
+                    <td><h:inputText value="#{darDeAltaBean.fechaNac}"/></td>
+                </tr>
+                <tr>
+                    <td>Tel&eacute;fono</td>
+                    <td><h:inputText value="#{darDeAltaBean.telefono}"/></td>
+                </tr>
+                <tr>
+                    <td>N&uacute;mero de cuenta</td>
+                    <td><h:inputText value="#{darDeAltaBean.ncuenta}"/></td>
+                </tr>
+                
+                <tr>
+                    <td>Saldo inicial</td>
+                    <td><h:inputText value="#{darDeAltaBean.saldoInicial}"/></td>
+                </tr>
+            </table>
+           
+            <h:commandButton action="#{darDeAltaBean.darDealta()}" value="Dar de alta">
+                <f:ajax execute="@form" render="ajaxMessage1"/>
+                     
+            </h:commandButton>
+                           
+            
+           
+        </h:form>
+        <font color="red"> <h:outputText value="#{darDeAltaBean.error}"
+                             id="ajaxMessage1"/></font>
+        
+    </h:body>
+</html>
+
