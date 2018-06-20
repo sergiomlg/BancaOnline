@@ -70,5 +70,8 @@ public class bOnlineBean implements Serializable {
     public String doInicio(){
         return "inicioTrabajador.xhtml";
     }
+    public String doAlta(){
+        return "darDeAlta.xhtml";
+    }
     
 }
