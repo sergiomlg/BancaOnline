@@ -7,6 +7,7 @@
         <title>PostuBank - Dar de alta</title>
     </h:head>
     <h:body>
+        <h1>Dar de alta un usuario</h1>
         <h:form>
             <table>
                 <tr>
@@ -15,11 +16,11 @@
                 </tr>
                 <tr>
                     <td>Contraseña</td>
-                    <td><h:inputText value="#{darDeAltaBean.password}"/></td>
+                    <td><h:inputSecret value="#{darDeAltaBean.password}"/></td>
                 </tr>
                 <tr>
                     <td>Confirmación de contraseña</td>
-                    <td><h:inputText value="#{darDeAltaBean.passConfir}"/></td>
+                    <td><h:inputSecret value="#{darDeAltaBean.passConfir}"/></td>
                 </tr>
                 
                 <tr>

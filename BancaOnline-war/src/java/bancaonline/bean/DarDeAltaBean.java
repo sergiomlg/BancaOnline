@@ -218,7 +218,7 @@ public class DarDeAltaBean {
         
         this.usuarioFacade.edit(user);
         
-        return "listadoClientes";
+        return "listadoClientes.xhtml";
         }
         
         
