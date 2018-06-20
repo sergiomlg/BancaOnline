@@ -86,7 +86,7 @@ public class bOnlineBeanTransferencia {
         this.cuenta = beanLogin.getCuentaTrans();
         cuenta.setSaldo(cuenta.getSaldo()-cantidad);
         cuentaDestino.setSaldo(cuentaDestino.getSaldo()+cantidad);
-        int contador= movimientoFacade.count();
+        
         
         Movimiento mov = new Movimiento();
         mov.setCantidad(cantidad);
