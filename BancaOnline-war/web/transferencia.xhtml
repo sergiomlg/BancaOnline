@@ -34,6 +34,9 @@
             <h:commandButton value="Realizar Transferencia" action="#{bOnlineBeanTransferencia.doRealizar()}"/>
         </h:form>
         
+        <font color="red"> <h:outputText value="#{bOnlineBeanTransferencia.error}"
+                             id="ajaxMessage1"/></font>
+        
     </h:body>
 </html>
 

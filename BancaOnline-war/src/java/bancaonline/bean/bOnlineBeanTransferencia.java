@@ -46,10 +46,21 @@ public class bOnlineBeanTransferencia {
     protected Integer idIBAN;
     protected Integer cantidad;
     protected String concepto;
+    private String error;
     
     public bOnlineBeanTransferencia() {
     }
 
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    
+    
     public String getConcepto() {
         return concepto;
     }
@@ -83,8 +94,11 @@ public class bOnlineBeanTransferencia {
     
     public String doRealizar(){
         this.cuentaDestino = cuentaFacade.find(idIBAN);
+        if (cuentaDestino == null){
+            error="";
+            error="Cuenta destino no válida";
+        }
         
-        Integer saldo= cuenta.getSaldo();
         cuenta.setSaldo(cuenta.getSaldo()-cantidad);
         cuentaDestino.setSaldo(cuentaDestino.getSaldo()+cantidad);
         

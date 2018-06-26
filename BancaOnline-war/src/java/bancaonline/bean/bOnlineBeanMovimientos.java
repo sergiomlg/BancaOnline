@@ -5,12 +5,14 @@
  */
 package bancaonline.bean;
 
+import bancaonline.ejb.MovimientoFacade;
 import bancaonline.entity.Cuenta;
 import bancaonline.entity.Movimiento;
 import bancaonline.entity.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 
 import javax.enterprise.context.RequestScoped;
@@ -31,6 +33,8 @@ public class bOnlineBeanMovimientos {
     private Cuenta cuenta;
     private List<Movimiento> listaMovimientos, listaMovimientosFiltrado;
     private String concepto;
+    @EJB
+    private MovimientoFacade movimientoFacade;
     /**
      * Creates a new instance of bOnlineBeanMovimientos
      */
@@ -49,6 +53,7 @@ public class bOnlineBeanMovimientos {
     public void filtrar(){
         
         listaMovimientosFiltrado= new ArrayList<>();
+        
         for(Movimiento m : listaMovimientos){
             if(m.getConcepto().equalsIgnoreCase(concepto)){
                 listaMovimientosFiltrado.add(m);
