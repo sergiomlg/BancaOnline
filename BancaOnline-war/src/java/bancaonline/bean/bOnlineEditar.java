@@ -54,6 +54,7 @@ public class bOnlineEditar {
     
     public String doGuardar(){
         this.userFacade.edit(user);
+        this.bOnlineBean.init();
         return "listadoClientes.xhtml";
     }
     

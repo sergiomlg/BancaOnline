@@ -6,11 +6,22 @@
         <title>Postu-Bank</title>
     </h:head>
     <h:body>
-        <h1>Introduce tus datos</h1>
+        <h1>PostuBank</h1>
+        
+        <h2>Introduce tus datos</h2>
         
         <h:form>
-            Usuario: <h:inputText value="#{bOnlineBeanLogin.user}"/><br/> 
-            Contraseña: <h:inputSecret value="#{bOnlineBeanLogin.password}" /><br/>
+            <table>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><h:inputText value="#{bOnlineBeanLogin.user}"/></td>
+                </tr> 
+                <tr>
+                    <td>Contrase&ntilde;a</td>
+                    <td><h:inputSecret value="#{bOnlineBeanLogin.password}" /></td>
+                </tr>
+            
+            </table>
             <h:commandButton value="Iniciar Sesion" action="#{bOnlineBeanLogin.doLogin()}"/>
         </h:form>
     </h:body>
