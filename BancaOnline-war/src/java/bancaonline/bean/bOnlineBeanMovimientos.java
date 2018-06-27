@@ -33,8 +33,7 @@ public class bOnlineBeanMovimientos {
     private Cuenta cuenta;
     private List<Movimiento> listaMovimientos, listaMovimientosFiltrado;
     private String concepto;
-    @EJB
-    private MovimientoFacade movimientoFacade;
+   
     /**
      * Creates a new instance of bOnlineBeanMovimientos
      */
@@ -59,6 +58,9 @@ public class bOnlineBeanMovimientos {
                 listaMovimientosFiltrado.add(m);
             }
         }
+        
+        
+        int i=0;
         
     }
 
