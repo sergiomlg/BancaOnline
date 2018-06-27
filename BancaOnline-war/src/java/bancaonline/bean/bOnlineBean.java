@@ -8,18 +8,19 @@ package bancaonline.bean;
 import bancaonline.ejb.UsuarioFacade;
 import bancaonline.entity.Usuario;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 
 /**
  *
  * @author EzequielRodriguez
  */
 @Named(value = "bOnlineBean") //Bean de listado Clientes
-@SessionScoped
+@RequestScoped
 public class bOnlineBean implements Serializable {
 
    @EJB private UsuarioFacade userFacade;
