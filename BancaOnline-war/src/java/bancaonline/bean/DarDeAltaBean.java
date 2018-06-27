@@ -180,6 +180,7 @@ public class DarDeAltaBean {
         int telf=0;
         try{
             telf=Integer.parseInt(this.telefono);
+            
         }catch (NumberFormatException e){
             error= "Teléfono no válido";
             
@@ -189,6 +190,9 @@ public class DarDeAltaBean {
                 || direccion.equalsIgnoreCase("") || fechaNac.equalsIgnoreCase("") || telf == 0 || saldoInicial==null){
             error = "Datos no válidos";
             return "darDeAlta";
+        }else if(this.usuarioFacade.find(usuario)!=null){
+                error = "usuario ya existe";
+                return "darDeAlta";
         }else{
         Usuario user = new Usuario();
         user.setIdUsuario(this.usuario);//es el DNI

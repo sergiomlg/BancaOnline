@@ -29,6 +29,7 @@ public class bOnlineEditar {
     @EJB private UsuarioFacade userFacade;
     
     private Usuario user;
+    private String tlf;
 
 
     
@@ -37,6 +38,14 @@ public class bOnlineEditar {
 
     public Usuario getUser() {
         return user;  
+    }
+
+    public String getTlf() {
+        return tlf;
+    }
+
+    public void setTlf(String tlf) {
+        this.tlf = tlf;
     }
 
     public void setUser(Usuario user) {
@@ -59,6 +68,7 @@ public class bOnlineEditar {
     
     public String doGuardar(){
         
+        user.setTlf(Integer.parseInt(tlf));
         this.userFacade.edit(user);
         this.bOnlineBean.init();
         return "listadoClientes.xhtml";
