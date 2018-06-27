@@ -97,6 +97,7 @@ public class bOnlineBeanTransferencia {
         if (cuentaDestino == null){
             error="";
             error="Cuenta destino no válida";
+            return "transferencia";
         }
         
         cuenta.setSaldo(cuenta.getSaldo()-cantidad);

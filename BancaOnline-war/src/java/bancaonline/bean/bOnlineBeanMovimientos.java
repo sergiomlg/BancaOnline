@@ -58,10 +58,7 @@ public class bOnlineBeanMovimientos {
                 listaMovimientosFiltrado.add(m);
             }
         }
-        
-        
-        int i=0;
-        
+
     }
 
     public Usuario getUser() {
