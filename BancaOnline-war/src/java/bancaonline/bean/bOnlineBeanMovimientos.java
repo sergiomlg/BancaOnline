@@ -52,13 +52,15 @@ public class bOnlineBeanMovimientos {
     public void filtrar(){
         
         listaMovimientosFiltrado= new ArrayList<>();
-        
+        if(!concepto.equals("")){
         for(Movimiento m : listaMovimientos){
             if(m.getConcepto().equalsIgnoreCase(concepto)){
                 listaMovimientosFiltrado.add(m);
             }
         }
-        
+        }else{
+            listaMovimientosFiltrado = listaMovimientos;
+        }
         
         int i=0;
         

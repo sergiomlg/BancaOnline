@@ -7,6 +7,9 @@ package bancaonline.bean;
 
 import bancaonline.ejb.UsuarioFacade;
 import bancaonline.entity.Usuario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -26,12 +29,14 @@ public class bOnlineEditar {
     @EJB private UsuarioFacade userFacade;
     
     private Usuario user;
+
+
     
     public bOnlineEditar() {
     }
 
     public Usuario getUser() {
-        return user;
+        return user;  
     }
 
     public void setUser(Usuario user) {
@@ -53,6 +58,7 @@ public class bOnlineEditar {
     }
     
     public String doGuardar(){
+        
         this.userFacade.edit(user);
         this.bOnlineBean.init();
         return "listadoClientes.xhtml";
