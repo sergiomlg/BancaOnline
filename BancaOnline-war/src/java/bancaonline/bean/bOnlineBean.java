@@ -15,12 +15,14 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 
+import javax.enterprise.context.SessionScoped;
+
 /**
  *
  * @author EzequielRodriguez
  */
 @Named(value = "bOnlineBean") //Bean de listado Clientes
-@RequestScoped
+@SessionScoped
 public class bOnlineBean implements Serializable {
 
    @EJB private UsuarioFacade userFacade;
@@ -31,6 +33,15 @@ public class bOnlineBean implements Serializable {
    
     
     public bOnlineBean() {
+    }
+    
+    @PostConstruct
+    public void init(){
+        listaClientes = this.userFacade.findAll();
+    }
+    
+    public void actualizarLista(){
+        listaClientes = this.userFacade.findAll();
     }
 
     public List<Usuario> getListaClientes() {
@@ -50,12 +61,6 @@ public class bOnlineBean implements Serializable {
     }
     
     
-    
-    @PostConstruct
-    public void init(){
-        listaClientes = this.userFacade.findAll();
-    }
-    
     public String doEditar(Integer idUsuario){
         this.idUsuarioSeleccionado = idUsuario;
         return "editarCliente.xhtml";
@@ -64,7 +69,7 @@ public class bOnlineBean implements Serializable {
     public String doEliminar(Integer idUsuario){
         Usuario user = this.userFacade.find(idUsuario);
         this.userFacade.remove(user);
-        this.init();
+        this.actualizarLista();
         return "listadoClientes.xhtml";
     }
     
